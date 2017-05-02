@@ -19,9 +19,14 @@ var game = (function(){
         keyboard = input.Keyboard();
         setupControlScheme();
 
+        //initalized the other main js files
+        graphics.initialize(); 
+        Physics.initialize();
 
 
-
+        //creates a temporary body
+        Physics.addToWorld(Physics.createRectangleBody(500, 500, 50, 50));
+        Physics.addMouseEvent();
 
         //after initializing the game, call our gameloop
         gameLoop();
@@ -41,6 +46,7 @@ var game = (function(){
         //keyboard.registerCommand(DOM_VK_UP, function);
     }
 
+    //handle the updating of the keyboard actions
     function handleInput(elapsedTime){
         keyboard.update(elapsedTime);
     }
@@ -74,7 +80,6 @@ var game = (function(){
 
         //main two functions to handle update and rendering
         update(elapsedTime);
-
         render(elapsedTime);
 
 
