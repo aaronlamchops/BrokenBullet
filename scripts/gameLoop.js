@@ -5,6 +5,9 @@ var game = (function(){
     //spot for all the global variables
     var keyboard, canceled, time;
 
+    //objects
+    var character;
+
     var that = {};
 
     //main initializing function to be called on start
@@ -14,19 +17,32 @@ var game = (function(){
         canceled = false;
         time = performance.now();
 
-
-        //initialized the keyboard
-        keyboard = input.Keyboard();
-        setupControlScheme();
-
         //initalized the other main js files
         graphics.initialize(); 
         Physics.initialize();
 
 
+        character = Character({
+            body: Physics.createRectangleBody(250, 250, 50, 50),
+            position: {
+                x: 250,
+                y: 250
+            },
+        });
+
+        character.addCharacterBody();
+
+        console.log(character);
+
+
         //creates a temporary body
         Physics.addToWorld(Physics.createRectangleBody(500, 500, 50, 50));
         Physics.addMouseEvent();
+
+
+        //initialized the keyboard
+        keyboard = input.Keyboard();
+        setupControlScheme();
 
         //after initializing the game, call our gameloop
         gameLoop();
@@ -44,6 +60,10 @@ var game = (function(){
 
         //call keyboard register commands to assign them to functions
         //keyboard.registerCommand(DOM_VK_UP, function);
+        keyboard.registerCommand(KeyEvent.DOM_VK_W, character.moveUp);
+        keyboard.registerCommand(KeyEvent.DOM_VK_S, character.moveDown);
+        keyboard.registerCommand(KeyEvent.DOM_VK_D, character.moveRight);
+        keyboard.registerCommand(KeyEvent.DOM_VK_A, character.moveLeft);
     }
 
     //handle the updating of the keyboard actions
@@ -60,7 +80,7 @@ var game = (function(){
 //MAIN FUNCTIONS:
 
     function update(elapsedTime){
-
+        character.update();
     }
 
     function render(elapsedTime){

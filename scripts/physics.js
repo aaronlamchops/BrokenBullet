@@ -76,6 +76,11 @@ var Physics = (function(){
         return box;
     };
 
+    //return the position of the body
+    that.returnBodyPosition = function(body){
+        return body.position;
+    };
+
     //create an event that allows the user to add a body at mousePos
     that.addMouseEvent = function(){
         Events.on(mouseConstraint, 'mousedown', function(event){
@@ -86,6 +91,16 @@ var Physics = (function(){
             World.add(engine.world, body);
 
         });
+    };
+
+    //set the label of a body
+    that.setLabel = function(body, label){
+        body.label = label;
+    };
+
+    //set the friction through air for a body
+    that.setFrictionAir = function(body, value){
+        body.frictionAir = value;
     };
 
 
