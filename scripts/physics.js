@@ -82,13 +82,22 @@ var Physics = (function(){
     };
 
     //create an event that allows the user to add a body at mousePos
-    that.addMouseEvent = function(){
+    that.addMouseDownEvent = function(character){
         Events.on(mouseConstraint, 'mousedown', function(event){
             var mousePosition = event.mouse.position;
+            console.log('x:' + (mousePosition.x - 350) + ' ' + 'y: ' + (mousePosition.y - 350));
+            character.fireGun(mousePosition);
 
-            var body = Bodies.rectangle(mousePosition.x, mousePosition.y, 20, 20);
+            console.log(character.returnBody().collisionFilter.category);
+        });
+    };
 
-            World.add(engine.world, body);
+    that.addMouseUpEvent = function(character){
+        Events.on(mouseConstraint, 'mouseup', function(event){
+            var mousePosition = event.mouse.position;
+
+            // Matter.Body.setPosition(body, {x: mousePosition.x, y: mousePosition.y});
+            // Matter.Body.setVelocity(body, {x: 10, y: 5});
 
         });
     };
@@ -101,6 +110,15 @@ var Physics = (function(){
     //set the friction through air for a body
     that.setFrictionAir = function(body, value){
         body.frictionAir = value;
+    };
+
+    //set speed of a body
+    that.setSpeed = function(body, value){
+        body.speed = value;
+    };
+
+    that.returnSpeed = function(body){
+        return body.speed;
     };
 
 

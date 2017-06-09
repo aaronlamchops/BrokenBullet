@@ -5,9 +5,11 @@ var Character = function(spec){
 
     var that = {};
 
+    var characterCategory = 0x0001;
 
     that.addCharacterBody = function(){
         Physics.setFrictionAir(spec.body, 0.095);
+        spec.body.collisionFilter.category = characterCategory;
         Physics.addToWorld(spec.body);
     };
 
@@ -17,6 +19,19 @@ var Character = function(spec){
 
     that.returnPosition = function(){
         return spec.position;
+    };
+
+//GUN:
+    that.initializeGun = function(){
+        spec.gun.initialize(spec.body);
+    };
+
+    that.returnGun = function(){
+        return spec.gun;
+    };
+
+    that.fireGun = function(mousePosition){
+        spec.gun.fire(mousePosition, spec.body.position);
     };
 
 
@@ -34,7 +49,11 @@ var Character = function(spec){
     that.moveDown = function(){
         Matter.Body.applyForce(spec.body, spec.body.position, {x: 0, y: 0.002 * spec.body.mass});
     };
-    
+
+//CONTROLS
+    that.reloadGun = function(){
+        spec.gun.reload(spec.body);
+    };
 
 
 

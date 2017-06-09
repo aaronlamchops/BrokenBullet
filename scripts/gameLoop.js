@@ -8,8 +8,15 @@ var game = (function(){
     //objects
     var character;
 
+    //collison categories;
+    var enemyCategory = 0x0002;
+    var defaultCategory = 0x0003;
+    var bulletCategory = 0x0004;
+
     var that = {};
 
+
+//INITIALIZE:
     //main initializing function to be called on start
     that.initialize = function(){
 
@@ -22,23 +29,42 @@ var game = (function(){
         Physics.initialize();
 
 
+        //initialize the character
         character = Character({
             body: Physics.createRectangleBody(250, 250, 50, 50),
             position: {
                 x: 250,
                 y: 250
             },
+            gun: Gun({
+                clip: 6,
+                clipMax: 6,
+                fireRate: 5,
+                damage: 2,
+                emptyChamber: false
+            }),
+
         });
 
+
+        //add the character to the world
         character.addCharacterBody();
 
-        console.log(character);
+        //initialize the gun the character has
+        character.initializeGun();
 
 
         //creates a temporary body
-        Physics.addToWorld(Physics.createRectangleBody(500, 500, 50, 50));
-        Physics.addMouseEvent();
+        var temp = Physics.createRectangleBody(500, 500, 50, 50);
+        temp.collisionFilter.category = enemyCategory;
+        Physics.addToWorld(temp);
+        //end temp
+        
 
+        //add mouse events
+        Physics.addMouseDownEvent(character);
+        Physics.addMouseUpEvent(character);
+        
 
         //initialized the keyboard
         keyboard = input.Keyboard();
@@ -52,7 +78,7 @@ var game = (function(){
 
 
 
-
+//CONTROLS
     //main function to set up all keyboard and mouse commands
     function setupControlScheme(){
         window.addEventListener('keydown', keyboard.keyPress, false);
@@ -64,6 +90,9 @@ var game = (function(){
         keyboard.registerCommand(KeyEvent.DOM_VK_S, character.moveDown);
         keyboard.registerCommand(KeyEvent.DOM_VK_D, character.moveRight);
         keyboard.registerCommand(KeyEvent.DOM_VK_A, character.moveLeft);
+
+        //other:
+        keyboard.registerCommand(KeyEvent.DOM_VK_R, character.reloadGun);
     }
 
     //handle the updating of the keyboard actions
