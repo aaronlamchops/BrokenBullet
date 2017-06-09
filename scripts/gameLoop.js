@@ -24,9 +24,12 @@ var game = (function(){
         canceled = false;
         time = performance.now();
 
+        var characterImage = new Image();
+
         //initalized the other main js files
         graphics.initialize(); 
         Physics.initialize();
+        
 
 
         //initialize the character
@@ -43,6 +46,7 @@ var game = (function(){
                 damage: 2,
                 emptyChamber: false
             }),
+            image: characterImage,
 
         });
 
@@ -93,6 +97,7 @@ var game = (function(){
 
         //other:
         keyboard.registerCommand(KeyEvent.DOM_VK_R, character.reloadGun);
+        keyboard.registerCommand(KeyEvent.DOM_VK_G, graphics.turnOff);
     }
 
     //handle the updating of the keyboard actions
@@ -113,7 +118,10 @@ var game = (function(){
     }
 
     function render(elapsedTime){
-
+        //switch the graphics off
+        if(!graphics.returnGraphicSwitch()){
+            graphics.drawImages(character);
+        }
     }
 
     function gameLoop(){

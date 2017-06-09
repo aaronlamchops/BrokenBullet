@@ -8,6 +8,7 @@ var Character = function(spec){
     var characterCategory = 0x0001;
 
     that.addCharacterBody = function(){
+        spec.image.src = 'assets/x.png';
         Physics.setFrictionAir(spec.body, 0.095);
         spec.body.collisionFilter.category = characterCategory;
         Physics.addToWorld(spec.body);
@@ -19,6 +20,10 @@ var Character = function(spec){
 
     that.returnPosition = function(){
         return spec.position;
+    };
+
+    that.returnImage = function(){
+        return spec.image;
     };
 
 //GUN:

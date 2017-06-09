@@ -32,10 +32,13 @@ var Physics = (function(){
                 element: document.body,
                 canvas: graphics.returnCanvas(),
                 engine: engine,
-                option: {
-                    width: 1000,    //need to change in matter.js
-                    height: 1000,   //need to change in matter.js
+                options: {
+                    width: 700,    //need to change in matter.js
+                    height: 700,   //need to change in matter.js
                     wireframes: true,
+                    wireframeBackground: 'transparent',
+                    showVelocity: true,
+                    showPositions: true,
                 }
             }
         });
