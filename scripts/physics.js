@@ -39,6 +39,7 @@ var Physics = (function(){
                     wireframeBackground: 'transparent',
                     showVelocity: true,
                     showPositions: true,
+                    showBroadphase: true,
                 }
             }
         });
