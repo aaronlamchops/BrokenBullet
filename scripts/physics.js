@@ -33,8 +33,8 @@ var Physics = (function(){
                 canvas: graphics.returnCanvas(),
                 engine: engine,
                 options: {
-                    width: 700,    //need to change in matter.js
-                    height: 700,   //need to change in matter.js
+                    width: graphics.returnCanvas().width,
+                    height: graphics.returnCanvas().height,
                     wireframes: true,
                     wireframeBackground: 'transparent',
                     showVelocity: true,
@@ -89,7 +89,7 @@ var Physics = (function(){
     that.addMouseDownEvent = function(character){
         Events.on(mouseConstraint, 'mousedown', function(event){
             var mousePosition = event.mouse.position;
-            console.log('x:' + (mousePosition.x - 350) + ' ' + 'y: ' + (mousePosition.y - 350));
+            console.log('x:' + (mousePosition.x - (graphics.returnCanvas().width / 2)) + ' ' + 'y: ' + (mousePosition.y - (graphics.returnCanvas().height / 2)));
             character.fireGun(mousePosition);
 
             console.log(character.returnBody().collisionFilter.category);

@@ -11,6 +11,7 @@ var graphics = (function(){
 
     var state = false;
 
+
     that.initialize = function(){
         canvas = document.getElementById('canvas-main');
         context = canvas.getContext('2d');
@@ -38,7 +39,7 @@ var graphics = (function(){
     that.drawImages = function(character){
         context.setTransform(1,0,0,1,0,0);
         context.clearRect(0,0, canvas.width, canvas.height);
-        context.drawImage(background, 0, 0, 700, 700);
+        context.drawImage(background, 0, 0, canvas.width, canvas.height);
         context.drawImage(character.returnImage(), character.returnPosition().x - 25, character.returnPosition().y - 25, 50, 50);
     };  
 
